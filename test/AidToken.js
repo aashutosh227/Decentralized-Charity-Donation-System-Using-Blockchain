@@ -50,4 +50,23 @@ contract('AidToken', function(accounts){
             assert.equal(balance.toNumber(), 750000, 'deducts the amount from the sending account');
         });
     });
+
+    it('approves tokens for delegated transfers',function(){
+        return AidToken.deployed().then(function(instance){
+            tokenInstance = instance;
+            return tokenInstance.approve.call(accounts[1],100);
+        }).then(function(success){
+            assert.equal(success,true,"it returns true");
+            return tokenInstance.approve(accounts[1],100);
+        }).then(function(receipt){
+            assert.equal(receipt.logs.length,1,"triggers 1 event");
+            assert.equal(receipt.logs[0].event,"Approval","Triggers Approval event");
+            assert.equal(receipt.logs[0].args._owner, accounts[0],"logs the account the tokens are authorized by");
+            assert.equal(receipt.logs[0].args._spender, accounts[1], "logs the account the tokens are authorized to");
+            assert.equal(receipt.logs[0].args._value, 100, "logs the amount authorized");
+            return tokenInstance.allowance(accounts[0],accounts[1]);
+        }).then(function(allowance){
+            assert.equal(allowance,100,'stores the allowance for delegated transfer');
+        });
+    });
 })
