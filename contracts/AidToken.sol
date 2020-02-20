@@ -47,4 +47,19 @@ contract AidToken  {
         emit Approval(msg.sender,_spender,_value);
         return true;
     }
+
+    //TransferFrom
+    function transferFrom(address _from, address _to, uint256 _value) public payable returns(bool success){
+        require(_value <= balanceOf[_from],"transfer amount should be less than balance");
+        //Require allowance is big enough
+        require(_value <= allowance[_from][msg.sender],"transfer amount should be less than allowance");
+
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+
+        allowance[_from][msg.sender] -= _value;
+
+        emit Transfer(_from,_to,_value);
+        return true;
+    }
 } 
