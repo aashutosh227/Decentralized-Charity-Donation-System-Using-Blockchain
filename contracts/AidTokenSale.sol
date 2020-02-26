@@ -41,4 +41,14 @@ contract AidTokenSale {
         //Trigger sell event
         emit Sell(msg.sender,_numberOfTokens);
     }
+
+    function endSale() public payable{
+        //Require admin
+        require(msg.sender == admin, "must be admin to end sale");
+        //Transfering remaining dapp tokens to the admin
+        require(tokenContract.transfer(admin, tokenContract.balanceOf(address(this))),
+        "transfers remaining tokens back to admin");
+        //Destroy Contract
+        selfdestruct(msg.sender);
+    }
 } 

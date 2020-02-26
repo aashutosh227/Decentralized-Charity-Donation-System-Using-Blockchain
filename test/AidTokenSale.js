@@ -57,4 +57,24 @@ contract('AidTokenSale',function(accounts){
             assert(error.message.toString().indexOf('revert') >= 0, 'cannot transfer more tokens than available');
         });
     });
+
+    it("end the token sale", function(){
+        return AidToken.deployed().then(function(instance){
+            tokenInstance = instance;
+            return AidTokenSale.deployed();
+        }).then(function(instance){
+            tokenSaleInstance = instance;
+            return tokenSaleInstance.endSale({from: buyer});
+        }).then(assert.fail).catch(function(error){
+            assert(error.message.toString().indexOf('revert') >= 0,'must be admin to end sale');
+            return tokenSaleInstance.endSale({from: admin});
+        }).then(function(receipt){
+            return tokenInstance.balanceOf(admin);
+        }).then(function(balance){
+            assert.equal(balance,999990,"returns all unsold tokens to admin");
+            return tokenSaleInstance.tokenPrice();
+        }).then(function(price){
+            assert.equal(price,0,"token price must be reset to 0");
+        });
+    });
 })
