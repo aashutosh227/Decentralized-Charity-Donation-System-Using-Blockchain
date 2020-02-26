@@ -8,6 +8,7 @@ contract AidToken  {
     string public standard = "AID Token v1.0";
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
+    uint256 public tokensSold;
 
     event Transfer(
         address indexed _from,
