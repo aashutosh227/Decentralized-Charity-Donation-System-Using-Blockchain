@@ -6,7 +6,7 @@ contract User{
     mapping(address=>string) public uType;
     string public name = "User contract";
     string public symbol = "USER";
-    
+
     event Username_Assigned(
         address indexed account,
         string uname

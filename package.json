@@ -1,0 +1,25 @@
+{
+  "name": "aid-charity",
+  "version": "1.0.0",
+  "description": "Charity donation DApp",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Aashutosh",
+  "license": "ISC",
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aashutosh227/Decentralized-Charity-Donation-System-Using-Blockchain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aashutosh227/Decentralized-Charity-Donation-System-Using-Blockchain/issues"
+  },
+  "homepage": "https://github.com/aashutosh227/Decentralized-Charity-Donation-System-Using-Blockchain#readme"
+}
